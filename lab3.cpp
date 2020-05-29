@@ -8,7 +8,7 @@ using namespace std;
 //
 
 #define THREAD_COUNT 13
-#define SEMAPHORE_COUNT 4
+#define SEMAPHORE_COUNT 5
 
 DWORD ThreadID;
 HANDLE hThread[THREAD_COUNT];
@@ -123,7 +123,8 @@ DWORD WINAPI thread_c(LPVOID lpParam){
         ReleaseMutex(hMutex);
         ReleaseSemaphore(hSemaphore[2], 1, NULL);
     }
-
+    
+    WaitForSingleObject(hSemaphore[4], INFINITE);
     return 0;
 }
 
@@ -152,6 +153,7 @@ DWORD WINAPI thread_d(LPVOID lpParam){
     }
     
     // wait b,c
+    ReleaseSemaphore(hSemaphore[4], 1, NULL);
     WaitForSingleObject(hThread[2], INFINITE);
     WaitForSingleObject(hThread[1], INFINITE);
 
@@ -319,8 +321,9 @@ DWORD WINAPI thread_k(LPVOID lpParam){
         ReleaseMutex(hMutex);
     }
     
-    // wait e
+    // wait e,g
     WaitForSingleObject(hThread[4], INFINITE);
+    WaitForSingleObject(hThread[6], INFINITE);
 
     for (int i = 0; i < 3; i++) {
         WaitForSingleObject(hMutex, INFINITE);
