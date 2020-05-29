@@ -152,8 +152,8 @@ DWORD WINAPI thread_d(LPVOID lpParam){
     }
     
     // wait b,c
-    WaitForSingleObject(hThread[1], INFINITE);
     WaitForSingleObject(hThread[2], INFINITE);
+    WaitForSingleObject(hThread[1], INFINITE);
 
     // t2-e,g,i,k
     hThread[4] = CreateThread(NULL, 0, thread_e, NULL, 0, &ThreadID);
@@ -255,8 +255,8 @@ DWORD WINAPI thread_f(LPVOID lpParam){
         ReleaseSemaphore(hSemaphore[0], 1, NULL);
     }
     // wait b,c
-    WaitForSingleObject(hThread[1], INFINITE);
     WaitForSingleObject(hThread[2], INFINITE);
+    WaitForSingleObject(hThread[1], INFINITE);
     
     for (int i = 0; i < 3; i++) {
         WaitForSingleObject(hMutex, INFINITE);
